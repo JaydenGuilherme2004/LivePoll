@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Voting</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #222;
+      color: #eee;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    .category {
+      margin: 30px auto;
+      max-width: 400px;
+      background: #333;
+      border-radius: 8px;
+      padding: 15px;
+    }
+    button.voteBtn {
+      margin: 5px 0;
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      background: #bc1823;
+      color: white;
+      transition: background 0.3s ease;
+    }
+    button.voteBtn:hover {
+      background: #600b10;
+    }
+
+    /* Results Modal */
+    #resultsModal {
+      display: none;
+      position: fixed;
+      top:0; left:0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    #resultsModal .modalContent {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    #resultsModal input[type=password] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    #resultsModal button {
+      padding: 10px 20px;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      margin-right: 10px;
+      background: #ff6b35;
+      color: white;
+      transition: background 0.3s ease;
+    }
+    #resultsModal button:hover {
+      background: #ff5722;
+    }
+    #passwordError {
+      color: #ff6b35;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Event Voting</h1>
+
+<div class="category">
+  <h2>Best Dress</h2>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Joel">Joel</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Matthew">Matthew</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Mikelle">Mikelle</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Shayna">Shayna</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Jayden">Jayden</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Shelley">Shelley</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Jorge">Jorge</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Dylan">Dylan</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Melody">Melody</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Chase">Chase</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Milo">Milo</button>
+  <button class="voteBtn" data-category="bestDress" data-contestant="Yuvraj">Yuvraj</button>
+</div>
+
+<div class="category">
+  <h2>Most Drunk</h2>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Joel">Joel</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Matthew">Matthew</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Mikelle">Mikelle</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Shayna">Shayna</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Jayden">Jayden</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Shelley">Shelley</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Jorge">Jorge</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Dylan">Dylan</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Melody">Melody</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Chase">Chase</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Milo">Milo</button>
+  <button class="voteBtn" data-category="mostDrunk" data-contestant="Yuvraj">Yuvraj</button>
+</div>
+
+<div class="category">
+  <h2>Best karaoke</h2>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Joel">Joel</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Matthew">Matthew</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Mikelle">Mikelle</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Shayna">Shayna</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Jayden">Jayden</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Shelley">Shelley</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Jorge">Jorge</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Dylan">Dylan</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Melody">Melody</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Chase">Chase</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Milo">Milo</button>
+  <button class="voteBtn" data-category="bestkaraoke" data-contestant="Yuvraj">Yuvraj</button>
+</div>
+
+<div class="category">
+  <h2>Most Creative Outfit</h2>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Joel">Joel</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Matthew">Matthew</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Mikelle">Mikelle</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Shayna">Shayna</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Jayden">Jayden</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Shelley">Shelley</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Jorge">Jorge</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Dylan">Dylan</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Melody">Melody</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Chase">Chase</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Milo">Milo</button>
+  <button class="voteBtn" data-category="mostCreative" data-contestant="Yuvraj">Yuvraj</button>
+
+</div>
+
+<!-- Results Icon -->
+<button id="showResultsBtn" style="position:fixed; top:20px; right:20px; padding:10px 15px; font-weight:bold; cursor:pointer; z-index:1000;">
+  Show Results
+</button>
+
+<!-- Results Modal -->
+<div id="resultsModal">
+  <div class="modalContent">
+    <h2>Enter Password to View Results</h2>
+    <input type="password" id="resultsPassword" placeholder="Password" />
+    <button id="submitPasswordBtn">Submit</button>
+    <button id="closeModalBtn">Close</button>
+    <p id="passwordError">Incorrect password</p>
+    <div id="resultsContent" style="margin-top:20px; display:none;"></div>
+  </div>
+</div>
+
+<script>
+  const voteButtons = document.querySelectorAll('.voteBtn');
+  voteButtons.forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const category = btn.getAttribute('data-category');
+      const contestant = btn.getAttribute('data-contestant');
+      try {
+        const res = await fetch('/vote', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({category, contestant})
+        });
+        const data = await res.json();
+        if (data.success) {
+          alert(`Thanks for voting for ${contestant} in ${category.replace(/([A-Z])/g, ' $1')}!`);
+        } else {
+          alert('Vote failed, try again.');
+        }
+      } catch (e) {
+        alert('Error submitting vote.');
+      }
+    });
+  });
+
+  // Modal and results code
+  const showResultsBtn = document.getElementById('showResultsBtn');
+  const resultsModal = document.getElementById('resultsModal');
+  const closeModalBtn = document.getElementById('closeModalBtn');
+  const submitPasswordBtn = document.getElementById('submitPasswordBtn');
+  const resultsPassword = document.getElementById('resultsPassword');
+  const passwordError = document.getElementById('passwordError');
+  const resultsContent = document.getElementById('resultsContent');
+
+  const ADMIN_PASSWORD = 'Jayden@122004';
+
+  showResultsBtn.addEventListener('click', () => {
+    resultsModal.style.display = 'flex';
+    resultsPassword.value = '';
+    passwordError.style.display = 'none';
+    resultsContent.style.display = 'none';
+    resultsPassword.style.display = 'block';
+    submitPasswordBtn.style.display = 'inline-block';
+  });
+
+  closeModalBtn.addEventListener('click', () => {
+    resultsModal.style.display = 'none';
+  });
+
+  submitPasswordBtn.addEventListener('click', async () => {
+    const entered = resultsPassword.value;
+    if (entered === ADMIN_PASSWORD) {
+      passwordError.style.display = 'none';
+      resultsPassword.style.display = 'none';
+      submitPasswordBtn.style.display = 'none';
+
+      // Fetch votes data from server
+      try {
+        const res = await fetch('/api/results');
+        if (!res.ok) throw new Error('Failed to fetch results');
+        const data = await res.json();
+
+        // Build HTML for results display
+        let html = '';
+        for (const category in data) {
+          html += `<h3>${category.replace(/([A-Z])/g, ' $1').toUpperCase()}</h3><ul>`;
+          const votes = data[category];
+          for (const contestant in votes) {
+            html += `<li><strong>${contestant}</strong>: ${votes[contestant]} votes</li>`;
+          }
+          html += '</ul>';
+        }
+
+        resultsContent.innerHTML = html;
+        resultsContent.style.display = 'block';
+
+      } catch (err) {
+        resultsContent.innerHTML = `<p style="color:#ff6b35;">Error loading results</p>`;
+        resultsContent.style.display = 'block';
+      }
+    } else {
+      passwordError.style.display = 'block';
+    }
+  });
+</script>
+
+</body>
+</html>
